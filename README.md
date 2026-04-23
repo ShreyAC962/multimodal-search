@@ -63,4 +63,7 @@ Kubernetes (kubectl)
 ```
 pip install -r requirements.txt
 ```
+<<<<<<< HEAD
 
+=======
+>>>>>>> ca3b5fd3f01272d987198126e420eb96e15c59ee
