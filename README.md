@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 ## MULTIMODAL SEARCH
 
 Designed and built a production-ready multimodal semantic search system that enables users to retrieve products using both natural language queries and images, leveraging CLIP for unified embedding generation.
@@ -64,6 +63,4 @@ Kubernetes (kubectl)
 ```
 pip install -r requirements.txt
 ```
-=======
-# multimodal-search
->>>>>>> 0b9e4291ae798e832937b9720c36183e6cc61f9e
+
