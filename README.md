@@ -50,7 +50,7 @@ multimodal-search/
 
 ### Setup
 ```
-pip install torch torchvision fastapi uvicorn pillow pinecone-client transformers
+pip install torch torchvision fastapi uvicorn pillow pinecone-client transformers python-dotenv
 
 ```
 Also:

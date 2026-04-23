@@ -4,5 +4,5 @@ torch
 torchvision
 transformers
 pillow
-pinecone-client
+pinecone
 tqdm
