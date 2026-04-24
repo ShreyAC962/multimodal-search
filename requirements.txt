@@ -6,3 +6,7 @@ transformers
 pillow
 pinecone
 tqdm
+python-dotenv
+python-multipart
+requests
+numpy

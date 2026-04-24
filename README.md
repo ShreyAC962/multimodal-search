@@ -27,7 +27,7 @@ multimodal-search/
 │   ├── main.py
 │   ├── api/
 │   │   ├── search.py
-│   │   └── upload.py
+│   │
 │   ├── models/
 │   │   └── clip_model.py
 │   ├── services/

@@ -5,8 +5,8 @@ import requests
 from PIL import Image
 from io import BytesIO
 
-from app.api.services.embedding_service import get_text_embedding, get_image_embedding
-from app.api.services.pinecone_service import PineconeService
+from app.services.embedding_service import get_text_embedding, get_image_embedding
+from app.services.pinecone_service import PineconeService
 from app.utils.fusion import fuse_embeddings
 
 pinecone_service = PineconeService()
@@ -47,10 +47,10 @@ for product in products:
             }
         })
 
-        print(f"Indexed product {product["id"]}")
+        print(f"Indexed product {product['id']}")
 
     except Exception as e:
-        print(f"Failed for product {product["id"]} : {str(e)}")
+        print(f"Failed for product {product['id']} : {str(e)}")
 
 
 # Upload to Pinecone

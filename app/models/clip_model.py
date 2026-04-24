@@ -1,5 +1,5 @@
 import torch 
-from transformers import CLIProcessor, CLIPModel
+from transformers import CLIPProcessor, CLIPModel
 
 class CLIPModelWrapper:
     def __init__(self):

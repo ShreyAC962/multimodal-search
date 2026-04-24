@@ -1,57 +1,55 @@
-apiVersion: apps/v1              # Kubernetes API version for deployments
-kind: Deployment                 # Type of object (Deployment = runs your app pods)
+apiVersion: apps/v1  # Kubernetes API version for deployments
+kind: Deployment     # Type of object (Deployment = runs your app)
 metadata:
-  name: multimodal-search       # Name of your deployment
-  labels:
-    app: multimodal-search      # Label to identify this app
+  name: multimodal-search  # Name of deployment (used in kubectl)
 spec:
-  replicas: 2                   # Number of container instances (scaling)
+  replicas: 2  # Number of running containers (for scaling & reliability)
+
   selector:
     matchLabels:
-      app: multimodal-search    # Must match pod template labels
+      app: multimodal-search  # Must match pod labels below
+
   template:
     metadata:
       labels:
-        app: multimodal-search  # Labels applied to pods
+        app: multimodal-search  # Labels used by service to find pods
+
     spec:
       containers:
-        - name: app-container   # Container name inside pod
-          image: multimodal-search:latest  # Docker image to run
-          imagePullPolicy: IfNotPresent    # Use local image if available
-          ports:
-            - containerPort: 8000          # FastAPI default port
+        - name: app  # Container name inside pod
 
-          env:                              # Environment variables inside container
+          image: shreyaraju/multimodal-search:latest
+          # Docker image that Kubernetes will pull
+
+          ports:
+            - containerPort: 8000
+            # Port where FastAPI runs inside container
+
+          env:
+            # ----------------------------
+            # ENV VARIABLES FROM SECRET
+            # ----------------------------
+
             - name: PINECONE_API_KEY
               valueFrom:
                 secretKeyRef:
-                  name: pinecone-secret     # Kubernetes Secret name
-                  key: api_key              # Key inside secret
+                  name: pinecone-secret
+                  key: PINECONE_API_KEY
 
             - name: PINECONE_ENV
-              value: "us-east-1"
+              valueFrom:
+                secretKeyRef:
+                  name: pinecone-secret
+                  key: PINECONE_ENV
 
             - name: PINECONE_INDEX
-              value: "multimodal-search"
+              valueFrom:
+                secretKeyRef:
+                  name: pinecone-secret
+                  key: PINECONE_INDEX
 
-          resources:                        # Resource limits (VERY IMPORTANT in production)
-            requests:
-              memory: "256Mi"              # Minimum memory
-              cpu: "250m"                  # 0.25 CPU
+          resources:
+            # Optional but production-grade
             limits:
-              memory: "512Mi"              # Max memory
-              cpu: "500m"                  # Max CPU
-
-          livenessProbe:                   # Checks if app is alive
-            httpGet:
-              path: /docs                  # FastAPI health endpoint
-              port: 8000
-            initialDelaySeconds: 10
-            periodSeconds: 20
-
-          readinessProbe:                  # Checks if app is ready to serve traffic
-            httpGet:
-              path: /docs
-              port: 8000
-            initialDelaySeconds: 5
-            periodSeconds: 10
+              memory: "512Mi"
+              cpu: "500m"
