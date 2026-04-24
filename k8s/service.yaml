@@ -1,0 +1,12 @@
+apiVersion: v1                    # Core Kubernetes API
+kind: Service                     # Exposes your deployment
+metadata:
+  name: multimodal-service        # Service name
+spec:
+  type: LoadBalancer              # Exposes app externally (cloud) or NodePort locally
+  selector:
+    app: multimodal-search       # Connects to pods with this label
+  ports:
+    - protocol: TCP              # Network protocol
+      port: 80                   # External port (what users access)
+      targetPort: 8000          # Container port (FastAPI)

@@ -1,0 +1,57 @@
+apiVersion: apps/v1              # Kubernetes API version for deployments
+kind: Deployment                 # Type of object (Deployment = runs your app pods)
+metadata:
+  name: multimodal-search       # Name of your deployment
+  labels:
+    app: multimodal-search      # Label to identify this app
+spec:
+  replicas: 2                   # Number of container instances (scaling)
+  selector:
+    matchLabels:
+      app: multimodal-search    # Must match pod template labels
+  template:
+    metadata:
+      labels:
+        app: multimodal-search  # Labels applied to pods
+    spec:
+      containers:
+        - name: app-container   # Container name inside pod
+          image: multimodal-search:latest  # Docker image to run
+          imagePullPolicy: IfNotPresent    # Use local image if available
+          ports:
+            - containerPort: 8000          # FastAPI default port
+
+          env:                              # Environment variables inside container
+            - name: PINECONE_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: pinecone-secret     # Kubernetes Secret name
+                  key: api_key              # Key inside secret
+
+            - name: PINECONE_ENV
+              value: "us-east-1"
+
+            - name: PINECONE_INDEX
+              value: "multimodal-search"
+
+          resources:                        # Resource limits (VERY IMPORTANT in production)
+            requests:
+              memory: "256Mi"              # Minimum memory
+              cpu: "250m"                  # 0.25 CPU
+            limits:
+              memory: "512Mi"              # Max memory
+              cpu: "500m"                  # Max CPU
+
+          livenessProbe:                   # Checks if app is alive
+            httpGet:
+              path: /docs                  # FastAPI health endpoint
+              port: 8000
+            initialDelaySeconds: 10
+            periodSeconds: 20
+
+          readinessProbe:                  # Checks if app is ready to serve traffic
+            httpGet:
+              path: /docs
+              port: 8000
+            initialDelaySeconds: 5
+            periodSeconds: 10
