@@ -1,6 +1,6 @@
 ## MULTIMODAL SEARCH
 
-Designed and built a production-ready multimodal semantic search system that enables users to retrieve products using both natural language queries and images, leveraging CLIP for unified embedding generation.
+Designed and built a production-ready multimodal semantic search system that enables users to retrieve products using both natural language queries and images individually or combined, leveraging CLIP for unified embedding generation.
 
 Implemented a scalable backend using FastAPI and Pinecone to perform high-speed vector similarity search across large product catalogs with efficient indexing and retrieval.
 

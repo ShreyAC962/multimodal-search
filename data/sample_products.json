@@ -1,12 +1,152 @@
 [
-  {"id": "1", "description": "red running shoes for men"},
-  {"id": "2", "description": "blue denim jacket stylish"},
-  {"id": "3", "description": "black leather wallet"},
-  {"id": "4", "description": "white sneakers casual wear"},
-  {"id": "5", "description": "wireless bluetooth headphones"},
-  {"id": "6", "description": "gaming laptop high performance"},
-  {"id": "7", "description": "smartphone with good camera"},
-  {"id": "8", "description": "green sports t-shirt breathable"},
-  {"id": "9", "description": "office chair ergonomic"},
-  {"id": "10", "description": "wooden dining table"}
+  {
+    "id": "1",
+    "description": "red running shoes for men",
+    "image_url": "https://images.unsplash.com/photo-1542291026-7eec264c27ff",
+    "category": "footwear"
+  },
+  {
+    "id": "2",
+    "description": "blue denim jacket stylish",
+    "image_url": "https://images.unsplash.com/photo-1520975922203-b0f3c6c1b7c6",
+    "category": "clothing"
+  },
+  {
+    "id": "3",
+    "description": "black leather wallet premium",
+    "image_url": "https://images.unsplash.com/photo-1600185365926-3a2ce3cdb9eb",
+    "category": "accessories"
+  },
+  {
+    "id": "4",
+    "description": "white sneakers casual wear",
+    "image_url": "https://images.unsplash.com/photo-1528701800489-20be9c5f1b0f",
+    "category": "footwear"
+  },
+  {
+    "id": "5",
+    "description": "wireless bluetooth headphones",
+    "image_url": "https://images.unsplash.com/photo-1580894894513-541e068a3e2b",
+    "category": "electronics"
+  },
+  {
+    "id": "6",
+    "description": "gaming laptop high performance",
+    "image_url": "https://images.unsplash.com/photo-1517336714731-489689fd1ca8",
+    "category": "electronics"
+  },
+  {
+    "id": "7",
+    "description": "smartphone with triple camera",
+    "image_url": "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9",
+    "category": "electronics"
+  },
+  {
+    "id": "8",
+    "description": "green sports t-shirt breathable",
+    "image_url": "https://images.unsplash.com/photo-1520975682031-a1a1b0c0d0e0",
+    "category": "clothing"
+  },
+  {
+    "id": "9",
+    "description": "ergonomic office chair black",
+    "image_url": "https://images.unsplash.com/photo-1580480055273-228ff5388ef8",
+    "category": "furniture"
+  },
+  {
+    "id": "10",
+    "description": "wooden dining table modern",
+    "image_url": "https://images.unsplash.com/photo-1560185127-6ed189bf02f4",
+    "category": "furniture"
+  },
+  {
+    "id": "11",
+    "description": "sports smartwatch fitness tracking",
+    "image_url": "https://images.unsplash.com/photo-1523275335684-37898b6baf30",
+    "category": "electronics"
+  },
+  {
+    "id": "12",
+    "description": "black sunglasses UV protection",
+    "image_url": "https://images.unsplash.com/photo-1511499767150-a48a237f0083",
+    "category": "accessories"
+  },
+  {
+    "id": "13",
+    "description": "luxury wrist watch gold finish",
+    "image_url": "https://images.unsplash.com/photo-1523275335684-37898b6baf30",
+    "category": "accessories"
+  },
+  {
+    "id": "14",
+    "description": "red hoodie streetwear style",
+    "image_url": "https://images.unsplash.com/photo-1520975682031-a1a1b0c0d0e0",
+    "category": "clothing"
+  },
+  {
+    "id": "15",
+    "description": "mountain hiking backpack large",
+    "image_url": "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee",
+    "category": "outdoor"
+  },
+  {
+    "id": "16",
+    "description": "professional DSLR camera",
+    "image_url": "https://images.unsplash.com/photo-1516035069371-29a1b244cc32",
+    "category": "electronics"
+  },
+  {
+    "id": "17",
+    "description": "running shorts lightweight",
+    "image_url": "https://images.unsplash.com/photo-1520975930043-2c1b7c3a7f4e",
+    "category": "clothing"
+  },
+  {
+    "id": "18",
+    "description": "minimalist desk lamp LED",
+    "image_url": "https://images.unsplash.com/photo-1507473885765-e6ed057f782c",
+    "category": "home"
+  },
+  {
+    "id": "19",
+    "description": "gaming mechanical keyboard RGB",
+    "image_url": "https://images.unsplash.com/photo-1517336714731-489689fd1ca8",
+    "category": "electronics"
+  },
+  {
+    "id": "20",
+    "description": "fitness dumbbells set",
+    "image_url": "https://images.unsplash.com/photo-1583454110551-21f2fa2afe61",
+    "category": "fitness"
+  },
+  {
+    "id": "21",
+    "description": "smart home speaker assistant",
+    "image_url": "https://images.unsplash.com/photo-1518441312470-5f7d3b6b4d3a",
+    "category": "electronics"
+  },
+  {
+    "id": "22",
+    "description": "leather office shoes formal",
+    "image_url": "https://images.unsplash.com/photo-1528701800489-20be9c5f1b0f",
+    "category": "footwear"
+  },
+  {
+    "id": "23",
+    "description": "cotton bedsheet soft white",
+    "image_url": "https://images.unsplash.com/photo-1505691938895-1758d7feb511",
+    "category": "home"
+  },
+  {
+    "id": "24",
+    "description": "wireless mouse ergonomic design",
+    "image_url": "https://images.unsplash.com/photo-1527864550417-7fd91fc51a46",
+    "category": "electronics"
+  },
+  {
+    "id": "25",
+    "description": "travel suitcase hard shell",
+    "image_url": "https://images.unsplash.com/photo-1502920917128-1aa500764cbd",
+    "category": "travel"
+  }
 ]
