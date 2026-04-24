@@ -10,10 +10,10 @@ class CLIPModelWrapper:
         inputs = self.processor(text=[text], return_tensors="pt", padding = True)
         with torch.no_grad():
             embeddings = self.model.get_text_features(**input)
-        return embedddings[0].numpy()
+        return embeddings[0].numpy()
     
     def encode_image(self, image):
-        inputs = self.processor(images=[images],return_tensors="pt")
+        inputs = self.processor(images=[image],return_tensors="pt")
         with torch.no_grad():
-            embedddings = self.model.get_image_features(**inputs)
+            embeddings = self.model.get_image_features(**inputs)
         return embeddings[0].numpy()

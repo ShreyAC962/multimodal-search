@@ -6,6 +6,8 @@ Implemented a scalable backend using FastAPI and Pinecone to perform high-speed 
 
 Containerized and deployed the system with Docker and Kubernetes, ensuring reliability, scalability, and real-time performance for large-scale search applications.
 
+Note : We use POST for image search because images are binary files that need to be sent in the request body using multipart form data. GET requests are limited to URL parameters and are not suitable for file uploads.
+
 ```
 User → FastAPI → CLIP Model → Embedding
                          ↓

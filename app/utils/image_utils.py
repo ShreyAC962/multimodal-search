@@ -16,6 +16,7 @@ def load_image(file):
             raise ValueError("Image too large (max 5MB)")
         
         image = Image.open(io.BytesIO(contents))
+        # Ensure valid imageS
         image.verify()
 
         # Convert to RGB (CLIP requirement)
