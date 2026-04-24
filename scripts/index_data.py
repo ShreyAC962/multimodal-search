@@ -1,62 +1,69 @@
 import json
 import numpy as np
-import requests
-
-from PIL import Image
-from io import BytesIO
 
 from app.services.embedding_service import get_text_embedding, get_image_embedding
 from app.services.pinecone_service import PineconeService
-from app.utils.fusion import fuse_embeddings
+from app.utils.image_utils import load_image
 
 pinecone_service = PineconeService()
 
 with open("data/sample_products.json") as f:
     products = json.load(f)
 
-def load_image_from_url(url):
-    # Download image from URL and convert to PIL Image
-    response = requests.get(url, timeout=10)
-    image = Image.open(BytesIO(response.content)).convert("RGB")
-    image = image.resize((224, 224))
-    return image
-
-def normalize(vec):
-    # Normalize the vector for stable similarity search
-    return vec/ np.linalg.norm(vec)
-
 vectors = []
 
 for product in products:
-    try:
-        text_embedding = get_text_embedding(product["description"])
-        image = load_image_from_url(product["image_url"])
-        image_embedding = get_image_embedding(image)
-        combined_embedding = 0.6 * np.array(text_embedding) + 0.4 * np.array(image_embedding)
 
-        combined_embedding = normalize(combined_embedding)
-    
-        # STORE IN PINECONE
+    try:
+        # --------------------
+        # TEXT EMBEDDING
+        # --------------------
+        text_emb = get_text_embedding(product["description"])
+
+        # --------------------
+        # IMAGE EMBEDDING
+        # --------------------
+        image = load_image(product["image_url"])
+
+        if image is None:
+            print(f"Skipping {product['id']} (bad image)")
+            continue
+
+        image_emb = get_image_embedding(image)
+
+        # --------------------
+        # SAFETY CHECK (IMPORTANT)
+        # --------------------
+        if len(text_emb) != len(image_emb):
+            print(f"Skipping {product['id']} (embedding mismatch)")
+            continue
+
+        # --------------------
+        # FUSION
+        # --------------------
+        combined = 0.6 * text_emb + 0.4 * image_emb
+
         vectors.append({
             "id": product["id"],
-            "values" : combined_embedding.tolist(),
-            "metadata":{
-                "description" : product["description"],
-                "image_url" : product["image_url"],
+            "values": combined.tolist(),
+            "metadata": {
+                "description": product["description"],
+                "image_url": product["image_url"],
                 "category": product.get("category", "")
             }
         })
 
-        print(f"Indexed product {product['id']}")
+        print(f"✔ Indexed {product['id']}")
 
     except Exception as e:
-        print(f"Failed for product {product['id']} : {str(e)}")
+        print(f"Failed {product['id']} -> {e}")
 
+# --------------------
+# FINAL SAFETY CHECK
+# --------------------
+if len(vectors) == 0:
+    raise ValueError("No valid vectors generated!")
 
-# Upload to Pinecone
 pinecone_service.upsert(vectors)
 
-print("Multimodal indexing completed successfully!")
-
-
-
+print("Indexing completed successfully!")

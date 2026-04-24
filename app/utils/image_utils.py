@@ -1,30 +1,15 @@
+import requests
 from PIL import Image
-import io
+from io import BytesIO
 
-MAX_IMAGE_SIZE_MB = 5
-
-def load_image(file):
+def load_image(url):
     try:
-        contents = file.read()
-        
-        if len(contents) == 0:
-            raise ValueError("Empty file")
-        
-        size_mb = len(contents)/(1024*1024)
+        response = requests.get(url, timeout=10)
+        response.raise_for_status()
 
-        if size_mb > MAX_IMAGE_SIZE_MB:
-            raise ValueError("Image too large (max 5MB)")
-        
-        image = Image.open(io.BytesIO(contents))
-        # Ensure valid imageS
-        image.verify()
+        image = Image.open(BytesIO(response.content))
+        return image.convert("RGB").resize((224, 224))
 
-        # Convert to RGB (CLIP requirement)
-        image = image.convert("RGB")
-        image = image.resize((224, 224))
-
-        return image
-    
     except Exception as e:
-        raise ValueError(f"Invalid image file: {str(e)}")
-    
+        print(f"Image failed: {url}")
+        return None
