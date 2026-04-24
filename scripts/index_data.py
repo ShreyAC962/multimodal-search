@@ -13,38 +13,35 @@ with open("data/sample_products.json") as f:
 vectors = []
 
 for product in products:
-
     try:
-        # --------------------
-        # TEXT EMBEDDING
-        # --------------------
+        # TEXT
         text_emb = get_text_embedding(product["description"])
+        if text_emb is None:
+            continue
 
-        # --------------------
-        # IMAGE EMBEDDING
-        # --------------------
+        # IMAGE
         image = load_image(product["image_url"])
-
         if image is None:
-            print(f"Skipping {product['id']} (bad image)")
+            print(f"Skipping {product['id']} bad image")
             continue
 
         image_emb = get_image_embedding(image)
-
-        # --------------------
-        # SAFETY CHECK (IMPORTANT)
-        # --------------------
-        if len(text_emb) != len(image_emb):
-            print(f"Skipping {product['id']} (embedding mismatch)")
+        if image_emb is None:
             continue
 
-        # --------------------
+        # FORCE SAME SHAPE
+        text_emb = np.array(text_emb).flatten()
+        image_emb = np.array(image_emb).flatten()
+
+        if text_emb.shape != image_emb.shape:
+            print(f"Skipping {product['id']} shape mismatch")
+            continue
+
         # FUSION
-        # --------------------
-        combined = 0.6 * text_emb + 0.4 * image_emb
+        combined = (0.6 * text_emb + 0.4 * image_emb).astype("float32")
 
         vectors.append({
-            "id": product["id"],
+            "id": str(product["id"]),
             "values": combined.tolist(),
             "metadata": {
                 "description": product["description"],
@@ -53,14 +50,11 @@ for product in products:
             }
         })
 
-        print(f"✔ Indexed {product['id']}")
+        print(f"Indexed {product['id']}")
 
     except Exception as e:
         print(f"Failed {product['id']} -> {e}")
 
-# --------------------
-# FINAL SAFETY CHECK
-# --------------------
 if len(vectors) == 0:
     raise ValueError("No valid vectors generated!")
 

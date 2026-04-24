@@ -3,7 +3,9 @@ from app.models.clip_model import CLIPModelWrapper
 clip = CLIPModelWrapper()
 
 def get_text_embedding(text):
-    return clip.encode_text(text)
+    emb = clip.encode_text(text)
+    return emb.flatten().astype("float32")
 
 def get_image_embedding(image):
-    return clip.encode_image(image)
+    emb = clip.encode_image(image)
+    return emb.flatten().astype("float32")
